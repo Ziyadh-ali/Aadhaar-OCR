@@ -21,7 +21,6 @@ const client = new vision.ImageAnnotatorClient({
 });
 
 export const extractAadhaarData = async (frontImageUrl: string, backImageUrl: string): Promise<IAadhaarData> => {
-    console.log(process.env.GOOGLE_CLIENT_EMAIL)
     console.log(process.env.GOOGLE_PROJECT_ID)
     console.log(process.env.GOOGLE_PRIVATE_KEY)
     const frontText = await getTextFromImage(frontImageUrl);
