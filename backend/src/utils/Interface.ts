@@ -5,3 +5,13 @@ export interface UploadRequest extends Request {
         backImage?: Express.Multer.File[];
     };
 }
+
+
+
+export interface IAadhaarData {
+    name: string;
+    dob: string;
+    gender: string;
+    aadhaarNumber: string;
+    address: string;
+}

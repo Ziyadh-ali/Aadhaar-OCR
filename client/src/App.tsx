@@ -44,7 +44,7 @@ export default function AadhaarOCR() {
   };
 
   const handleImageUpload = (file: File, side: "front" | "back") => {
-    if (!validateFile(file)) return; // ⬅ Stop here if invalid
+    if (!validateFile(file)) return;
 
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -117,6 +117,9 @@ export default function AadhaarOCR() {
                   <Label htmlFor="front-upload" className="text-sm font-medium">
                     Front Side
                   </Label>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Only JPG, JPEG, PNG files up to 2MB are allowed.
+                  </p>
                   <div className="mt-2 flex items-center gap-4">
                     <Input
                       id="front-upload"
@@ -152,6 +155,9 @@ export default function AadhaarOCR() {
                   <Label htmlFor="back-upload" className="text-sm font-medium">
                     Back Side
                   </Label>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Only JPG, JPEG, PNG files up to 2MB are allowed.
+                  </p>
                   <div className="mt-2 flex items-center gap-4">
                     <Input
                       id="back-upload"
