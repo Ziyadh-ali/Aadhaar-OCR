@@ -18,12 +18,9 @@ export class AadhaarOCRService implements IOCRService<IAadhaarData> {
             throw new Error("Aadhaar front/back images might be swapped or invalid");
         }
 
-        const frontData = parseAadhaarDetails(frontText);
-        const backData = parseAadhaarDetails(backText);
-
-        // if (!isSameAadhaar(frontData, backData)) {
-        //     throw new Error("Front and back sides do not belong to the same Aadhaar card.");
-        // }
+        if (!isSameAadhaar(frontText, backText)) {
+            throw new Error("Front and back sides do not belong to the same Aadhaar card.");
+        }
 
         return parseAadhaarDetails(`${frontText}\n${backText}`)
     }

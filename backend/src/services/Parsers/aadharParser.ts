@@ -25,11 +25,36 @@ export const isFrontSide = (text: string) => {
 export const isBackSide = (text: string) => {
     return /\bAddress\b/i.test(text) || /\b\d{6}\b/.test(text);
 };
+export const extractFrontAadhaarNumber = (text: string): string | null => {
+    if (!text) return null;
 
-export const isSameAadhaar = (front: IAadhaarData, back: IAadhaarData): boolean => {
-    if (!front.aadhaarNumber || !back.aadhaarNumber) {
-        return false;
+    const match = text.match(/\b\d{4}\s?\d{4}\s?\d{4}\b/);
+    if (!match) return null;
+
+    return match[0].replace(/\s/g, "");
+};
+
+export const extractBackAadhaarNumber = (text: string): string | null => {
+    if (!text) return null;
+
+    const match = text.match(/(\d{4}\s?\d{4}\s?\d{4})\s*(?=VID\b)/i);
+
+    if (match) {
+        return match[1]!.replace(/\s/g, "");
     }
 
-    return front.aadhaarNumber === back.aadhaarNumber;
+    const fallback = text.match(/\b\d{4}\s?\d{4}\s?\d{4}\b/);
+    return fallback ? fallback[0].replace(/\s/g, "") : null;
+};
+
+export const isSameAadhaar = (frontText: string, backText: string): boolean => {
+    const frontNum = extractFrontAadhaarNumber(frontText);
+    const backNum = extractBackAadhaarNumber(backText);
+
+    if (!frontNum || !backNum) return false;
+
+    console.log("Front Aadhaar:", frontNum);
+    console.log("Back Aadhaar:", backNum);
+
+    return frontNum === backNum;
 };
